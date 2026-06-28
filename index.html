@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sua opinião — Maurício | Prassi Engenharia</title>
+<meta name="description" content="Uma conversa rápida sobre como posso te servir melhor.">
+<style>
+  :root{
+    --azul:#143779;
+    --terra:#BF5C3B;
+    --caramelo:#E78F56;
+    --creme:#F1DCC6;
+    --grafite:#657B8C;
+    --cinza:#B3C0C9;
+    --branco:#FFFFFF;
+    --tinta:#1d2733;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--tinta);
+    line-height:1.6;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #fbeede 0%, rgba(251,238,222,0) 60%),
+      linear-gradient(180deg,#fff7ee 0%, #f6efe6 100%);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px 64px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    margin:0 -18px 0;
+    overflow:hidden;
+    border-bottom-left-radius:28px;
+    border-bottom-right-radius:28px;
+    box-shadow:0 18px 40px -22px rgba(20,55,121,.55);
+  }
+  .hero svg{display:block;width:100%;height:auto}
+  .hero-text{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:22px 24px 26px;
+    color:#fff;
+  }
+  .hero-kicker{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--creme);font-weight:600;opacity:.95
+  }
+  .hero-text h1{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(24px,6vw,34px);
+    line-height:1.15;font-weight:700;margin-top:6px;
+    text-shadow:0 2px 18px rgba(0,0,0,.35)
+  }
+
+  /* ---------- INTRO ---------- */
+  .intro{
+    background:var(--branco);
+    border-radius:20px;
+    padding:26px 24px;
+    margin-top:22px;
+    box-shadow:0 10px 30px -18px rgba(20,55,121,.4);
+    border:1px solid #efe2d2;
+  }
+  .intro p{color:#33414f;font-size:16.5px}
+  .intro p + p{margin-top:12px}
+  .sign{
+    margin-top:16px;display:flex;align-items:center;gap:12px;
+    border-top:1px dashed #e4d6c4;padding-top:16px
+  }
+  .avatar{
+    width:46px;height:46px;border-radius:50%;flex:none;
+    background:linear-gradient(135deg,var(--azul),#27518f);
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:18px;font-family:Georgia,serif
+  }
+  .sign b{color:var(--azul)}
+  .sign small{color:var(--grafite)}
+  .time{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--creme);color:var(--terra);
+    font-weight:600;font-size:13px;
+    padding:6px 12px;border-radius:999px;margin-top:14px
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.card{
+    background:var(--branco);
+    border-radius:20px;
+    padding:22px 22px 8px;
+    margin-top:18px;
+    box-shadow:0 10px 30px -20px rgba(20,55,121,.38);
+    border:1px solid #efe2d2;
+  }
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sec-num{
+    width:30px;height:30px;border-radius:9px;flex:none;
+    background:var(--azul);color:#fff;font-weight:700;font-size:14px;
+    display:flex;align-items:center;justify-content:center
+  }
+  .sec-head h2{
+    font-family:Georgia,serif;color:var(--azul);
+    font-size:18px;font-weight:700;line-height:1.2
+  }
+  .q{padding:16px 0;border-top:1px solid #f1e8db}
+  .q:first-of-type{border-top:none}
+  .q > label.qlabel{display:block;font-weight:600;color:var(--tinta);font-size:16px}
+  .q .hint{display:block;color:var(--grafite);font-size:13.5px;margin-top:3px;margin-bottom:10px}
+  .req{color:var(--terra);font-weight:700}
+  .opt{color:var(--cinza);font-weight:500;font-size:13px}
+
+  /* inputs */
+  input[type=text], textarea{
+    width:100%;border:1.5px solid #e2d6c6;border-radius:12px;
+    padding:12px 14px;font-size:16px;font-family:inherit;color:var(--tinta);
+    background:#fffdfa;transition:border-color .15s, box-shadow .15s;margin-top:8px
+  }
+  textarea{min-height:92px;resize:vertical}
+  input[type=text]:focus, textarea:focus{
+    outline:none;border-color:var(--caramelo);
+    box-shadow:0 0 0 3px rgba(231,143,86,.18)
+  }
+
+  /* NPS scale */
+  .nps{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .nps input{position:absolute;opacity:0;width:0;height:0}
+  .nps label{
+    flex:1 1 auto;min-width:42px;text-align:center;cursor:pointer;
+    border:1.5px solid #e2d6c6;border-radius:11px;padding:11px 0;
+    font-weight:700;color:var(--azul);background:#fffdfa;
+    transition:all .12s;user-select:none
+  }
+  .nps label:hover{border-color:var(--caramelo)}
+  .nps input:checked + label{
+    background:var(--azul);border-color:var(--azul);color:#fff;
+    transform:translateY(-1px);box-shadow:0 6px 14px -6px rgba(20,55,121,.6)
+  }
+  .nps-ends{display:flex;justify-content:space-between;color:var(--grafite);font-size:12.5px;margin-top:8px}
+
+  /* choice lists */
+  .choices{margin-top:10px;display:flex;flex-direction:column;gap:9px}
+  .choices.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+  .opt-row{
+    display:flex;align-items:center;gap:11px;cursor:pointer;
+    border:1.5px solid #e9ddcd;border-radius:12px;padding:11px 13px;
+    background:#fffdfa;transition:all .12s;font-size:15px
+  }
+  .opt-row:hover{border-color:var(--caramelo);background:#fff8f0}
+  .opt-row input{accent-color:var(--terra);width:18px;height:18px;flex:none}
+  .opt-row.checked{border-color:var(--azul);background:#eef3fb}
+
+  /* feeling scale (faces) */
+  .feel{display:flex;gap:8px;margin-top:12px}
+  .feel input{position:absolute;opacity:0;width:0;height:0}
+  .feel label{
+    flex:1;text-align:center;cursor:pointer;border:1.5px solid #e2d6c6;
+    border-radius:12px;padding:10px 4px;background:#fffdfa;transition:all .12s
+  }
+  .feel label .emo{font-size:22px;display:block;line-height:1}
+  .feel label .cap{font-size:11px;color:var(--grafite);margin-top:4px;display:block}
+  .feel input:checked + label{border-color:var(--azul);background:#eef3fb;box-shadow:0 4px 12px -6px rgba(20,55,121,.5)}
+
+  /* submit */
+  .footnote{color:var(--grafite);font-size:13px;margin:14px 2px 0}
+  .submit-wrap{margin-top:22px;text-align:center}
+  button.send{
+    appearance:none;border:none;cursor:pointer;
+    background:linear-gradient(135deg,var(--caramelo),var(--terra));
+    color:#fff;font-size:17px;font-weight:700;font-family:inherit;
+    padding:16px 38px;border-radius:14px;width:100%;
+    box-shadow:0 14px 26px -12px rgba(191,92,59,.7);transition:transform .12s,box-shadow .12s
+  }
+  button.send:hover{transform:translateY(-2px);box-shadow:0 18px 30px -12px rgba(191,92,59,.75)}
+  button.send:active{transform:translateY(0)}
+
+  footer{text-align:center;color:var(--grafite);font-size:13px;margin-top:30px;line-height:1.7}
+  footer b{color:var(--azul)}
+  .wa{
+    display:inline-flex;align-items:center;gap:6px;
+    color:#1ba34a;font-weight:600;text-decoration:none;
+    border-bottom:1px solid rgba(27,163,74,.35)
+  }
+  .wa svg{width:15px;height:15px;flex:none}
+
+  /* thank you */
+  #thanks{display:none;text-align:center;padding:40px 20px}
+  #thanks .check{
+    width:78px;height:78px;border-radius:50%;margin:0 auto 18px;
+    background:linear-gradient(135deg,var(--azul),#2c5a9e);
+    display:flex;align-items:center;justify-content:center
+  }
+  #thanks h2{font-family:Georgia,serif;color:var(--azul);font-size:26px}
+  #thanks p{color:#33414f;margin-top:10px;font-size:16px}
+
+  .honey{position:absolute;left:-9999px}
+  @media (max-width:420px){
+    .choices.grid{grid-template-columns:1fr}
+    .nps label{min-width:38px;padding:10px 0}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ====================== HERO ====================== -->
+  <div class="hero">
+    <svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Nascer do sol sobre montanhas com uma planta industrial de bebidas">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0f2a5a"/>
+          <stop offset="0.5" stop-color="#2f5089"/>
+          <stop offset="0.82" stop-color="#9c5740"/>
+          <stop offset="1" stop-color="#BF5C3B"/>
+        </linearGradient>
+        <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#F6E8D5"/>
+          <stop offset="0.45" stop-color="#E78F56"/>
+          <stop offset="1" stop-color="#E78F56" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="mFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#3a5b93"/><stop offset="1" stop-color="#274a80"/>
+        </linearGradient>
+        <linearGradient id="mNear" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1c3c75"/><stop offset="1" stop-color="#142d59"/>
+        </linearGradient>
+        <linearGradient id="tank" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#0c1f3f"/>
+          <stop offset="0.5" stop-color="#16336a"/>
+          <stop offset="0.62" stop-color="#27508c"/>
+          <stop offset="1" stop-color="#0c1f3f"/>
+        </linearGradient>
+        <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0f2a5a" stop-opacity="0"/>
+          <stop offset="1" stop-color="#0a1f43" stop-opacity="0.9"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="680" height="300" fill="url(#sky)"/>
+      <circle cx="455" cy="138" r="135" fill="url(#sun)"/>
+      <circle cx="455" cy="138" r="40" fill="#F8EEDD" opacity="0.96"/>
+
+      <!-- distant mountain range -->
+      <path d="M0 205 L90 140 L165 185 L255 120 L355 190 L455 130 L560 188 L680 142 L680 300 L0 300 Z" fill="url(#mFar)" opacity="0.7"/>
+      <!-- near range with snow cap -->
+      <path d="M0 300 L110 195 L200 245 L320 150 L420 230 L545 178 L680 255 L680 300 Z" fill="url(#mNear)"/>
+      <path d="M320 150 L296 192 L314 185 L330 200 L348 182 L366 193 L420 230 L320 150 Z" fill="#cfdcec" opacity="0.55"/>
+
+      <!-- ===== industrial plant — beverage / brewery silhouette ===== -->
+      <g fill="url(#tank)">
+        <!-- main building -->
+        <rect x="78" y="232" width="150" height="68"/>
+        <!-- roof vents -->
+        <rect x="96" y="222" width="16" height="12"/>
+        <rect x="124" y="222" width="16" height="12"/>
+        <!-- fermentation tanks (cylindrical, conical bottom) -->
+        <path d="M250 196 h34 v74 l-17 22 l-17 -22 Z"/>
+        <path d="M292 184 h38 v86 l-19 24 l-19 -24 Z"/>
+        <path d="M338 200 h32 v70 l-16 20 l-16 -20 Z"/>
+        <!-- chimney / column -->
+        <rect x="392" y="168" width="15" height="132"/>
+        <!-- smaller tank + warehouse on right -->
+        <path d="M430 214 h28 v62 l-14 18 l-14 -18 Z"/>
+        <rect x="470" y="244" width="120" height="56"/>
+        <rect x="600" y="252" width="80" height="48"/>
+      </g>
+      <!-- tank tops (domes) -->
+      <g fill="#27508c">
+        <ellipse cx="267" cy="196" rx="17" ry="6"/>
+        <ellipse cx="311" cy="184" rx="19" ry="6.5"/>
+        <ellipse cx="354" cy="200" rx="16" ry="5.5"/>
+        <ellipse cx="444" cy="214" rx="14" ry="5"/>
+      </g>
+      <!-- highlight rims catching the sunrise -->
+      <g stroke="#E78F56" stroke-width="2" opacity="0.85" fill="none" stroke-linecap="round">
+        <path d="M251 198 q16 -8 32 0"/>
+        <path d="M293 186 q18 -9 36 0"/>
+      </g>
+      <!-- warm office windows -->
+      <g fill="#F1DCC6" opacity="0.9">
+        <rect x="90" y="246" width="9" height="10"/><rect x="106" y="246" width="9" height="10"/>
+        <rect x="122" y="246" width="9" height="10"/><rect x="138" y="246" width="9" height="10"/>
+        <rect x="486" y="258" width="10" height="11"/><rect x="506" y="258" width="10" height="11"/>
+        <rect x="526" y="258" width="10" height="11"/>
+      </g>
+
+      <rect width="680" height="300" fill="url(#fade)"/>
+    </svg>
+    <div class="hero-text">
+      <div class="hero-kicker">Prassi Engenharia &amp; Assessoria</div>
+      <h1>Quero ouvir você.</h1>
+    </div>
+  </div>
+
+  <!-- ====================== INTRO ====================== -->
+  <div class="intro">
+    <p>Olá! Construo o meu trabalho ouvindo de perto quem confia nele. Sua visão sincera — o que funciona, o que falta e como posso ser mais útil ao seu negócio — vale muito para mim.</p>
+    <p>Pode ser <b>franco, inclusive nas críticas</b>. É exatamente isso que me ajuda a evoluir e a cuidar melhor da nossa parceria.</p>
+    <div class="time">⏱ Leva cerca de 4 minutos</div>
+    <div class="sign">
+      <div class="avatar">M</div>
+      <div>
+        <b>Maurício Coutinho Ferreira</b><br>
+        <small>Eng. Químico · Prassi Engenharia e Assessoria</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====================== FORM ====================== -->
+  <form id="nps-form"
+        action="https://formspree.io/f/xkolbprk"
+        method="POST">
+
+    <!-- honeypot anti-spam -->
+    <input class="honey" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+
+    <!-- ---------- BLOCO 1 ---------- -->
+    <section class="card">
+      <div class="sec-head"><div class="sec-num">1</div><h2>Recomendação</h2></div>
+
+      <div class="q">
+        <label class="qlabel" for="nps">De 0 a 10, o quanto você recomendaria o meu trabalho a um colega ou parceiro de negócios? <span class="req">*</span></label>
+        <div class="nps" id="nps">
+          <!-- 0..10 -->
+          <input type="radio" id="n0" name="nps" value="0" required><label for="n0">0</label>
+          <input type="radio" id="n1" name="nps" value="1"><label for="n1">1</label>
+          <input type="radio" id="n2" name="nps" value="2"><label for="n2">2</label>
+          <input type="radio" id="n3" name="nps" value="3"><label for="n3">3</label>
+          <input type="radio" id="n4" name="nps" value="4"><label for="n4">4</label>
+          <input type="radio" id="n5" name="nps" value="5"><label for="n5">5</label>
+          <input type="radio" id="n6" name="nps" value="6"><label for="n6">6</label>
+          <input type="radio" id="n7" name="nps" value="7"><label for="n7">7</label>
+          <input type="radio" id="n8" name="nps" value="8"><label for="n8">8</label>
+          <input type="radio" id="n9" name="nps" value="9"><label for="n9">9</label>
+          <input type="radio" id="n10" name="nps" value="10"><label for="n10">10</label>
+        </div>
+        <div class="nps-ends"><span>Não recomendaria</span><span>Recomendaria com certeza</span></div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="motivo">Qual o principal motivo da sua nota?</label>
+        <textarea id="motivo" name="Motivo da nota" placeholder="Pode escrever à vontade…"></textarea>
+      </div>
+    </section>
+
+    <!-- ---------- BLOCO 2 ---------- -->
+    <section class="card">
+      <div class="sec-head"><div class="sec-num">2</div><h2>Sobre o meu trabalho</h2></div>
+
+      <div class="q">
+        <label class="qlabel">O que você mais valoriza no que eu entrego? <span class="opt">(pode marcar mais de uma)</span></label>
+        <div class="choices grid">
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Conhecimento técnico"> Conhecimento técnico</label>
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Confiança e segurança"> Confiança e segurança</label>
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Clareza na comunicação"> Clareza na comunicação</label>
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Agilidade"> Agilidade</label>
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Resolução de problemas"> Resolução de problemas</label>
+          <label class="opt-row"><input type="checkbox" name="Mais valoriza" value="Relacionamento próximo"> Relacionamento próximo</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="palavra">Em uma palavra ou frase, como você descreveria a sensação de trabalhar comigo?</label>
+        <input type="text" id="palavra" name="Sensacao de trabalhar comigo" placeholder="Ex.: tranquilidade, confiança…">
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="lacuna">O que você gostaria ou espera de mim e sente que ainda <b>não recebe</b>?</label>
+        <span class="hint">Esta é a resposta que mais me ajuda. Pode ser totalmente sincero.</span>
+        <textarea id="lacuna" name="O que ainda nao recebe" placeholder="Sem rodeios — eu quero saber."></textarea>
+      </div>
+    </section>
+
+    <!-- ---------- BLOCO 3 ---------- -->
+    <section class="card">
+      <div class="sec-head"><div class="sec-num">3</div><h2>O seu negócio</h2></div>
+
+      <div class="q">
+        <label class="qlabel" for="desafios">Quais são os <b>dois maiores</b> desafios que você enfrenta hoje no seu negócio?</label>
+        <textarea id="desafios" name="Dois maiores desafios" placeholder="1) …&#10;2) …"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel">Você sente que precisa de ajuda para resolver esses desafios?</label>
+        <div class="choices">
+          <label class="opt-row"><input type="radio" name="Precisa de ajuda" value="Sim, com urgência"> Sim, com urgência</label>
+          <label class="opt-row"><input type="radio" name="Precisa de ajuda" value="Sim, em breve"> Sim, em breve</label>
+          <label class="opt-row"><input type="radio" name="Precisa de ajuda" value="Talvez"> Talvez</label>
+          <label class="opt-row"><input type="radio" name="Precisa de ajuda" value="Nao, por enquanto"> Não, por enquanto</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel">Como você se sente hoje em relação ao <b>seu negócio</b>?</label>
+        <div class="feel">
+          <input type="radio" id="b1" name="Sentimento sobre o negocio" value="1 - Muito preocupado"><label for="b1"><span class="emo">😟</span><span class="cap">Preocupado</span></label>
+          <input type="radio" id="b2" name="Sentimento sobre o negocio" value="2"><label for="b2"><span class="emo">😕</span><span class="cap"> </span></label>
+          <input type="radio" id="b3" name="Sentimento sobre o negocio" value="3 - Neutro"><label for="b3"><span class="emo">😐</span><span class="cap">Neutro</span></label>
+          <input type="radio" id="b4" name="Sentimento sobre o negocio" value="4"><label for="b4"><span class="emo">🙂</span><span class="cap"> </span></label>
+          <input type="radio" id="b5" name="Sentimento sobre o negocio" value="5 - Muito confiante"><label for="b5"><span class="emo">😀</span><span class="cap">Confiante</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel">E como você se sente em relação à <b>nossa parceria</b>?</label>
+        <div class="feel">
+          <input type="radio" id="p1" name="Sentimento sobre a parceria" value="1 - Insatisfeito"><label for="p1"><span class="emo">😟</span><span class="cap">Insatisfeito</span></label>
+          <input type="radio" id="p2" name="Sentimento sobre a parceria" value="2"><label for="p2"><span class="emo">😕</span><span class="cap"> </span></label>
+          <input type="radio" id="p3" name="Sentimento sobre a parceria" value="3 - Neutro"><label for="p3"><span class="emo">😐</span><span class="cap">Neutro</span></label>
+          <input type="radio" id="p4" name="Sentimento sobre a parceria" value="4"><label for="p4"><span class="emo">🙂</span><span class="cap"> </span></label>
+          <input type="radio" id="p5" name="Sentimento sobre a parceria" value="5 - Muito satisfeito"><label for="p5"><span class="emo">😀</span><span class="cap">Satisfeito</span></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- BLOCO 4 (substitui o checklist de serviços) ---------- -->
+    <section class="card">
+      <div class="sec-head"><div class="sec-num">4</div><h2>Olhando para frente</h2></div>
+
+      <div class="q">
+        <label class="qlabel" for="apoio">Pensando nos próximos meses, em que você gostaria de poder contar comigo?</label>
+        <span class="hint">Pode ser algo que já fazemos juntos ou algo novo — me conte o que tem em mente.</span>
+        <textarea id="apoio" name="Onde gostaria de apoio" placeholder="Com suas palavras…"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="naoencontra">Há algo que você gostaria de poder contratar e ainda não encontrou — comigo ou no mercado? <span class="opt">(opcional)</span></label>
+        <textarea id="naoencontra" name="O que nao encontra no mercado" placeholder="Uma necessidade que ninguém atende bem…"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel">Se fizesse sentido contar com um apoio técnico mais contínuo, qual investimento mensal seria confortável? <span class="opt">(opcional)</span></label>
+        <div class="choices">
+          <label class="opt-row"><input type="radio" name="Investimento mensal" value="Ate R$ 500"> Até R$ 500</label>
+          <label class="opt-row"><input type="radio" name="Investimento mensal" value="R$ 500 a 1.500"> R$ 500 a 1.500</label>
+          <label class="opt-row"><input type="radio" name="Investimento mensal" value="R$ 1.500 a 4.000"> R$ 1.500 a 4.000</label>
+          <label class="opt-row"><input type="radio" name="Investimento mensal" value="Acima de R$ 4.000"> Acima de R$ 4.000</label>
+          <label class="opt-row"><input type="radio" name="Investimento mensal" value="Prefiro pagar por projeto"> Prefiro pagar por projeto</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- BLOCO 5 ---------- -->
+    <section class="card">
+      <div class="sec-head"><div class="sec-num">5</div><h2>Para encerrar</h2></div>
+
+      <div class="q">
+        <label class="qlabel">Você toparia deixar um depoimento sobre o nosso trabalho?</label>
+        <div class="choices">
+          <label class="opt-row"><input type="radio" name="Depoimento" value="Sim, pode usar meu nome"> Sim, pode usar meu nome</label>
+          <label class="opt-row"><input type="radio" name="Depoimento" value="Sim, sem meu nome"> Sim, mas sem meu nome</label>
+          <label class="opt-row"><input type="radio" name="Depoimento" value="Prefiro nao"> Prefiro não</label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="livre">Algo mais que você queira me dizer? <span class="opt">(opcional)</span></label>
+        <textarea id="livre" name="Espaco livre" placeholder="O espaço é seu."></textarea>
+      </div>
+
+      <div class="q">
+        <label class="qlabel" for="nome">Seu nome <span class="opt">(opcional)</span></label>
+        <input type="text" id="nome" name="Nome" placeholder="Como você quer ser identificado">
+      </div>
+      <div class="q">
+        <label class="qlabel" for="empresa">Sua empresa <span class="opt">(opcional)</span></label>
+        <input type="text" id="empresa" name="Empresa" placeholder="Nome da empresa">
+        <span class="hint">Suas respostas são tratadas com total confidencialidade.</span>
+      </div>
+    </section>
+
+    <div class="submit-wrap">
+      <button type="submit" class="send">Enviar minhas respostas →</button>
+      <p class="footnote">Obrigado por dedicar alguns minutos a isso. Significa muito. 🙏</p>
+    </div>
+  </form>
+
+  <!-- ---------- THANK YOU ---------- -->
+  <div id="thanks">
+    <div class="check">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2>Recebido. Obrigado!</h2>
+    <p>Sua opinião chegou até mim e será lida com atenção.<br>É com ela que eu construo um trabalho cada vez melhor para você.</p>
+    <p style="margin-top:18px;color:var(--azul);font-weight:600">— Maurício, Prassi Engenharia</p>
+  </div>
+
+  <footer>
+    <b>Maurício Coutinho Ferreira</b><br>
+    <a class="wa" href="https://wa.me/5551995451857" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="#1ba34a"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.39 5.034l-.999 3.648 3.099-.81zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      +55 51 99545 1857
+    </a><br>
+    Eng. Químico — CREA RS 149251 · CRQ V 05303466<br>
+    Prassi Engenharia e Assessoria · CNPJ 51.901.128/0001-67
+  </footer>
+</div>
+
+<script>
+  // realça visualmente as opções marcadas
+  document.querySelectorAll('.opt-row input').forEach(function(inp){
+    function sync(){
+      if(inp.type === 'radio'){
+        document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(o){
+          o.closest('.opt-row').classList.toggle('checked', o.checked);
+        });
+      } else {
+        inp.closest('.opt-row').classList.toggle('checked', inp.checked);
+      }
+    }
+    inp.addEventListener('change', sync);
+  });
+
+  // envio sem sair da página (funciona com Formspree)
+  var form = document.getElementById('nps-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('button.send');
+    btn.textContent = 'Enviando…'; btn.disabled = true;
+    var data = new FormData(form);
+    fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
+      .then(function(r){
+        if(r.ok){
+          form.style.display = 'none';
+          document.getElementById('thanks').style.display = 'block';
+          window.scrollTo({ top:0, behavior:'smooth' });
+        } else {
+          throw new Error('falha');
+        }
+      })
+      .catch(function(){
+        btn.textContent = 'Enviar minhas respostas →'; btn.disabled = false;
+        alert('Não consegui enviar agora. Verifique a conexão e tente novamente — ou me chame no WhatsApp. 🙏');
+      });
+  });
+</script>
+</body>
+</html>
