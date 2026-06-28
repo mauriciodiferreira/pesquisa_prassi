@@ -310,7 +310,7 @@
 
   <!-- ====================== FORM ====================== -->
   <form id="nps-form"
-        action="https://formspree.io/f/xkolbprk"
+        action="https://script.google.com/macros/s/AKfycbzjdbuItT2k3EDJOWoKJcYey4P6XohQXIw9plun04ggcAsZ4icayibwgRqXKrtDcqeSDA/exec"
         method="POST">
 
     <!-- honeypot anti-spam -->
@@ -519,16 +519,12 @@
     e.preventDefault();
     var btn = form.querySelector('button.send');
     btn.textContent = 'Enviando…'; btn.disabled = true;
-    var data = new FormData(form);
-    fetch(form.action, { method:'POST', body:data, headers:{ 'Accept':'application/json' } })
-      .then(function(r){
-        if(r.ok){
-          form.style.display = 'none';
-          document.getElementById('thanks').style.display = 'block';
-          window.scrollTo({ top:0, behavior:'smooth' });
-        } else {
-          throw new Error('falha');
-        }
+    var data = new URLSearchParams(new FormData(form));
+    fetch(form.action, { method:'POST', body:data, mode:'no-cors' })
+      .then(function(){
+        form.style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
+        window.scrollTo({ top:0, behavior:'smooth' });
       })
       .catch(function(){
         btn.textContent = 'Enviar minhas respostas →'; btn.disabled = false;
