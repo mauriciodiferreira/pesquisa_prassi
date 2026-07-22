@@ -421,6 +421,8 @@
     fetch(form.action, { method:'POST', body:data, mode:'no-cors' })
       .then(function(){
         form.style.display = 'none';
+        var intro = document.querySelector('.intro'); if (intro) intro.style.display = 'none';
+        var hero = document.querySelector('.hero'); if (hero) hero.style.display = 'none';
         document.getElementById('thanks').style.display = 'block';
         window.scrollTo({ top:0, behavior:'smooth' });
       })
