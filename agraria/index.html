@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback da palestra · Encontro Técnico Agrária Malte · Prassi Engenharia</title>
+<meta name="description" content="Dois minutos para me dizer o que funcionou e o que faltou.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Michroma&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#143779;
+    --terracota:#BF5C3B;
+    --caramelo:#E78F56;
+    --creme:#F1DCC6;
+    --aco:#657B8C;
+    --nevoa:#B3C0C9;
+    --tinta:#1a2333;
+    --serif:'EB Garamond',Georgia,'Times New Roman',serif;
+    --label:'Michroma','Arial Narrow',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--serif);
+    color:var(--tinta);
+    font-size:18px;
+    line-height:1.55;
+    background:#FFFFFF;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:660px;margin:0 auto;padding:0 20px 72px}
+
+  .mich{font-family:var(--label);text-transform:uppercase;letter-spacing:0.2em}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--azul);
+    margin:0 -20px;
+    padding:38px 28px 34px;
+    text-align:left;
+  }
+  .hero .lockup{width:216px;max-width:62%;height:auto;display:block}
+  .filete{height:3px;width:46px;background:var(--caramelo);margin:22px 0 18px}
+  .hero-kicker{font-family:var(--label);text-transform:uppercase;letter-spacing:0.28em;
+    font-size:11px;color:var(--nevoa)}
+  .hero h1{
+    font-family:var(--serif);color:#FFFFFF;font-weight:600;
+    font-size:clamp(30px,7vw,42px);line-height:1.1;margin-top:10px;
+  }
+  .hero .promise{color:var(--nevoa);font-size:16px;margin-top:12px;max-width:34em}
+
+  /* ---------- INTRO ---------- */
+  .intro{
+    background:var(--creme);
+    border:1px solid #e6d6c2;
+    border-radius:6px;
+    padding:26px 26px;
+    margin-top:26px;
+  }
+  .intro p{color:#33414f;font-size:18px}
+  .intro p + p{margin-top:12px}
+  .tag{
+    display:inline-flex;align-items:center;gap:10px;margin-top:18px;
+    font-family:var(--label);text-transform:uppercase;letter-spacing:0.2em;
+    font-size:11px;color:var(--aco)
+  }
+  .tag::before{content:"";width:22px;height:2px;background:var(--caramelo)}
+  .endorse{
+    margin-top:18px;padding-top:16px;border-top:1px solid #e6d6c2;
+    font-style:italic;color:var(--terracota);font-size:17px
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.card{
+    background:#FFFFFF;
+    border:1px solid var(--nevoa);
+    border-radius:6px;
+    padding:24px 24px 10px;
+    margin-top:20px;
+  }
+  .sec-head{display:flex;align-items:baseline;gap:12px}
+  .sec-code{font-family:var(--label);color:var(--caramelo);font-size:13px;letter-spacing:0.1em}
+  .sec-head h2{font-family:var(--serif);color:var(--azul);font-weight:600;font-size:22px;line-height:1.15}
+  .sec-rule{height:2px;width:38px;background:var(--caramelo);margin:12px 0 4px}
+
+  .q{padding:18px 0;border-top:1px solid #eef1f4}
+  .q.first{border-top:none}
+  .q > .qlabel{display:block;font-weight:600;color:var(--tinta);font-size:18px;line-height:1.4}
+  .q .hint{display:block;color:var(--aco);font-size:15px;margin-top:4px}
+  .opt{color:var(--aco);font-weight:500;font-size:14px;font-style:italic}
+  .req{color:var(--terracota);font-weight:600}
+
+  /* sub-campos (ex.: desafio 1 e 2, gravados em colunas separadas) */
+  .subq{margin-top:14px}
+  .sublabel{display:block;font-size:11px;color:var(--aco);letter-spacing:0.2em}
+  .sublabel .opt{font-family:var(--serif);text-transform:none;letter-spacing:0;font-size:14px}
+  .subq textarea{min-height:68px;margin-top:6px}
+
+  input[type=text], textarea{
+    width:100%;border:1px solid var(--nevoa);border-radius:4px;
+    padding:12px 14px;font-size:17px;font-family:var(--serif);color:var(--tinta);
+    background:#fff;transition:border-color .15s, box-shadow .15s;margin-top:10px
+  }
+  textarea{min-height:92px;resize:vertical;line-height:1.5}
+  input[type=text]:focus, textarea:focus{
+    outline:none;border-color:var(--caramelo);box-shadow:0 0 0 2px rgba(231,143,86,.25)
+  }
+  ::placeholder{color:var(--nevoa);font-style:italic}
+
+  .scale{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .scale input{position:absolute;opacity:0;width:0;height:0}
+  .scale label{
+    flex:1 1 auto;min-width:40px;text-align:center;cursor:pointer;
+    border:1px solid var(--nevoa);border-radius:4px;padding:11px 0;
+    font-weight:600;color:var(--azul);background:#fff;transition:all .12s;user-select:none
+  }
+  .scale label:hover{border-color:var(--caramelo)}
+  .scale input:checked + label{background:var(--azul);border-color:var(--azul);color:#fff}
+  .ends{display:flex;justify-content:space-between;color:var(--aco);font-size:14px;margin-top:8px;font-style:italic}
+
+  .choices{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+  .opt-row{
+    display:flex;align-items:center;gap:12px;cursor:pointer;
+    border:1px solid var(--nevoa);border-radius:4px;padding:11px 14px;
+    background:#fff;transition:all .12s;font-size:16px
+  }
+  .opt-row:hover{border-color:var(--caramelo)}
+  .opt-row input{accent-color:var(--terracota);width:17px;height:17px;flex:none}
+  .opt-row.checked{border-color:var(--azul);background:#f2f5fa}
+
+  .footnote{color:var(--aco);font-size:15px;margin:16px 2px 0;font-style:italic}
+  .submit-wrap{margin-top:26px}
+  button.send{
+    appearance:none;border:none;cursor:pointer;width:100%;
+    background:var(--azul);color:#FFFFFF;
+    font-family:var(--label);text-transform:uppercase;letter-spacing:0.2em;font-size:14px;
+    padding:17px 24px;border-radius:4px;transition:background .15s
+  }
+  button.send:hover{background:var(--terracota)}
+  button.send:disabled{background:var(--aco);cursor:default}
+
+  footer{
+    background:var(--azul);margin:34px -20px 0;padding:30px 28px;
+    color:var(--nevoa);font-size:15px;line-height:1.7
+  }
+  footer .fname{color:#FFFFFF;font-weight:600;font-size:17px}
+  footer a{color:var(--caramelo);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  footer .frow{margin-top:6px}
+  footer .wa{display:inline-flex;align-items:center;gap:7px}
+  footer .wa svg{width:15px;height:15px;flex:none}
+
+  #thanks{display:none;text-align:center;padding:56px 24px}
+  #thanks .mark{
+    width:70px;height:70px;border-radius:6px;margin:0 auto 22px;
+    background:var(--azul);display:flex;align-items:center;justify-content:center
+  }
+  #thanks .k{font-family:var(--label);text-transform:uppercase;letter-spacing:0.24em;
+    font-size:11px;color:var(--caramelo)}
+  #thanks h2{font-family:var(--serif);color:var(--azul);font-size:30px;font-weight:600;margin-top:12px}
+  #thanks p{color:#33414f;margin-top:12px;font-size:18px}
+  #thanks .sig{margin-top:20px;font-style:italic;color:var(--terracota)}
+
+  .honey{position:absolute;left:-9999px}
+  @media (max-width:430px){
+    .scale label{min-width:34px;padding:10px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <div class="hero">
+    <svg class="lockup" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRASSI Engenharia &amp; Assessoria">
+      <defs><mask id="cut"><rect width="200" height="200" fill="white"></rect><rect x="24" y="14" width="26" height="46" fill="black" transform="rotate(-24 44 40)"></rect><rect x="34" y="170" width="66" height="27" fill="black" transform="rotate(-24 68 180)"></rect></mask></defs>
+      <g transform="translate(29,0) skewX(-17)"><path d="M42 46 L116 46 C 154 46 165 68 162 88 C 158 113 126 123 88 123 C 78 123 72 133 70 147 L 65 178" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="butt" stroke-linejoin="round" mask="url(#cut)"></path><path d="M28 84 L98 84" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="butt"></path></g>
+      <text x="212" y="110" font-family="Michroma" font-size="58" letter-spacing="9" fill="#FFFFFF">PRASSI</text>
+      <text x="215" y="146" font-family="Michroma" font-size="15.5" letter-spacing="6.2" fill="#B3C0C9">ENGENHARIA &amp; ASSESSORIA</text>
+    </svg>
+    <div class="filete"></div>
+    <div class="hero-kicker">Encontro Técnico Agrária Malte · 05.08.2026</div>
+    <h1>Como foi para você?</h1>
+    <p class="promise">Qualidade na cervejaria e as novas exigências do MAPA — Cervejaria Clandestina, Estância Velha/RS.</p>
+  </div>
+
+  <!-- ================= INTRO ================= -->
+  <div class="intro">
+    <p>Obrigado por ter ficado até o fim. Agora eu preciso de dois minutos seus.</p>
+    <p>Eu leio todas as respostas, uma por uma. É o que corrige o que não ficou claro hoje e o que define o tema do próximo encontro. Pode ser franco, inclusive nas críticas — principalmente nelas.</p>
+    <div class="tag">Cerca de 2 minutos</div>
+    <div class="endorse">por Maurício di Ferreira · Engenheiro Químico</div>
+  </div>
+
+  <!-- ================= FORM ================= -->
+  <form id="fb-form"
+        action="COLE_AQUI_A_URL_DO_APPS_SCRIPT_TERMINADA_EM_/exec"
+        method="POST">
+
+    <input class="honey" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+
+    <!-- BLOCO 01 -->
+    <section class="card">
+      <div class="sec-head"><span class="sec-code mich">01</span><h2>A palestra</h2></div>
+      <div class="sec-rule"></div>
+
+      <div class="q first">
+        <span class="qlabel">De 1 a 5, o quanto você gostou da palestra? <span class="req">*</span></span>
+        <div class="scale" id="nota">
+          <input type="radio" id="n1" name="nota" value="1" required><label for="n1">1</label>
+          <input type="radio" id="n2" name="nota" value="2"><label for="n2">2</label>
+          <input type="radio" id="n3" name="nota" value="3"><label for="n3">3</label>
+          <input type="radio" id="n4" name="nota" value="4"><label for="n4">4</label>
+          <input type="radio" id="n5" name="nota" value="5"><label for="n5">5</label>
+        </div>
+        <div class="ends"><span>Não valeu o tempo</span><span>Valeu muito</span></div>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">Teve algum ponto que você sentiu que <strong>não é bem como foi falado ali</strong>?</span>
+        <span class="hint">A sua prática vale tanto quanto a norma. Se algo não bateu com o que você vive na fábrica, eu quero saber. Podemos discutir um contorno para essa situação prática.</span>
+        <textarea name="Divergencia" placeholder="Sem rodeios. Pode discordar."></textarea>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">Alguma sugestão para um próximo encontro?</span>
+        <span class="hint">Tema, formato, duração, o que faltou aprofundar.</span>
+        <textarea name="Sugestao proximo encontro" placeholder="O que você gostaria de ver da próxima vez."></textarea>
+      </div>
+    </section>
+
+    <!-- BLOCO 02 -->
+    <section class="card">
+      <div class="sec-head"><span class="sec-code mich">02</span><h2>O seu negócio</h2></div>
+      <div class="sec-rule"></div>
+
+      <div class="q first">
+        <span class="qlabel">Quais são os <strong>dois maiores desafios</strong> do seu negócio hoje — e por quê? <span class="req">*</span></span>
+        <span class="hint">Esta é a resposta que mais me ajuda. Pode ser técnico, financeiro, de pessoas, de mercado — o que realmente tira o seu sono.</span>
+        <div class="subq"><span class="sublabel mich">Desafio 1</span>
+          <textarea name="Desafio 1" placeholder="Qual é — e por quê." required></textarea></div>
+        <div class="subq"><span class="sublabel mich">Desafio 2 <span class="opt">se houver</span></span>
+          <textarea name="Desafio 2" placeholder="Qual é — e por quê."></textarea></div>
+      </div>
+
+      <div class="q">
+        <span class="qlabel">Você estaria disposto a contratar uma consultoria externa para resolver esses problemas, com retorno rápido do investimento?</span>
+        <div class="choices">
+          <label class="opt-row"><input type="radio" name="Contrataria consultoria" value="Sim, quero conversar agora"> Sim, e quero conversar agora</label>
+          <label class="opt-row"><input type="radio" name="Contrataria consultoria" value="Sim, nos proximos meses"> Sim, nos próximos meses</label>
+          <label class="opt-row"><input type="radio" name="Contrataria consultoria" value="Talvez, depende do custo e do escopo"> Talvez — depende do custo e do escopo</label>
+          <label class="opt-row"><input type="radio" name="Contrataria consultoria" value="Nao, prefiro resolver internamente"> Não, prefiro resolver internamente</label>
+          <label class="opt-row"><input type="radio" name="Contrataria consultoria" value="Nao, sem condicoes no momento"> Não, sem condições no momento</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO 03 -->
+    <section class="card">
+      <div class="sec-head"><span class="sec-code mich">03</span><h2>Para eu poder retornar</h2></div>
+      <div class="sec-rule"></div>
+
+      <div class="q first">
+        <span class="qlabel">Seu nome <span class="opt">opcional</span></span>
+        <input type="text" name="Nome" placeholder="Como você quer ser identificado">
+      </div>
+      <div class="q">
+        <span class="qlabel">Sua cervejaria ou empresa <span class="opt">opcional</span></span>
+        <input type="text" name="Empresa" placeholder="Nome da empresa">
+      </div>
+      <div class="q">
+        <span class="qlabel">WhatsApp ou e-mail <span class="opt">opcional</span></span>
+        <input type="text" name="Contato" placeholder="Só se você quiser que eu responda">
+        <span class="hint">Suas respostas são tratadas com total confidencialidade e não são compartilhadas com terceiros.</span>
+      </div>
+    </section>
+
+    <div class="submit-wrap">
+      <button type="submit" class="send">Enviar respostas</button>
+      <p class="footnote">Obrigado por dedicar dois minutos a isso. Faz diferença de verdade.</p>
+    </div>
+  </form>
+
+  <!-- ================= THANK YOU ================= -->
+  <div id="thanks">
+    <div class="mark">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="k mich">Recebido</div>
+    <h2>Obrigado pela franqueza.</h2>
+    <p>Sua resposta chegou e será lida com atenção.<br>Se você deixou contato e pediu retorno, eu falo com você.</p>
+    <div class="sig">por Maurício di Ferreira · Engenheiro Químico</div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="fname">Maurício di Ferreira · Engenheiro Químico</div>
+    <div class="frow">CREA-RS 149251 · CRQ-V 05303466</div>
+    <div class="frow">Prassi Engenharia e Assessoria LTDA · CNPJ 51.901.128/0001-67</div>
+    <div class="frow">Rua Alexandre Fleming, 182 · Sala 1301 · Madureira · CEP 95041-520 · Caxias do Sul/RS</div>
+    <div class="frow">
+      <a class="wa" href="https://wa.me/5551995451857" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#E78F56"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.39 5.034l-.999 3.648 3.099-.81zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        +55 51 99545-1857
+      </a>
+      &nbsp;·&nbsp; <a href="mailto:mauriciodiferreira@prassiengenharia.com.br">mauriciodiferreira@prassiengenharia.com.br</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.opt-row input').forEach(function(inp){
+    function sync(){
+      if(inp.type === 'radio'){
+        document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(o){
+          o.closest('.opt-row').classList.toggle('checked', o.checked);
+        });
+      } else {
+        inp.closest('.opt-row').classList.toggle('checked', inp.checked);
+      }
+    }
+    inp.addEventListener('change', sync);
+  });
+
+  var form = document.getElementById('fb-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('button.send');
+    btn.textContent = 'Enviando…'; btn.disabled = true;
+    var data = new URLSearchParams(new FormData(form));
+    fetch(form.action, { method:'POST', body:data, mode:'no-cors' })
+      .then(function(){
+        form.style.display = 'none';
+        var intro = document.querySelector('.intro'); if (intro) intro.style.display = 'none';
+        var hero = document.querySelector('.hero'); if (hero) hero.style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
+        window.scrollTo({ top:0, behavior:'smooth' });
+      })
+      .catch(function(){
+        btn.textContent = 'Enviar respostas'; btn.disabled = false;
+        alert('Não consegui enviar agora. Verifique a conexão e tente novamente, ou fale com a Prassi pelo WhatsApp.');
+      });
+  });
+</script>
+</body>
+</html>
