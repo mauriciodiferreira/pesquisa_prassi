@@ -50,7 +50,7 @@ Cliente abre o link  →  index.html (GitHub Pages / domínio próprio)
 
 ### URL do Apps Script atualmente em uso (campo `action` do formulário)
 ```
-https://script.google.com/macros/s/AKfycbwV5S7nOzZ2vabm8e6vgHbmSXHq3RH-RCIO8UKo9qBwkwJo7a0ctN8JYIf75a-ls7TYTQ/exec
+https://script.google.com/macros/s/AKfycbxPm4Oqf_chgWo5NSKIhJHUQLuS63oYr5zrQeRjKscXCeNlMDu-tHu2qoyPkKOUyOq6Lw/exec
 ```
 > ⚠️ Toda vez que você cria uma **nova implantação** do Apps Script, essa URL muda e
 > precisa ser atualizada no `index.html` (campo `action=`). Se só editar o código e usar
@@ -84,8 +84,15 @@ https://script.google.com/macros/s/AKfycbwV5S7nOzZ2vabm8e6vgHbmSXHq3RH-RCIO8UKo9
 - **Tipografia:** EB Garamond em todo o texto; Michroma só em rótulos curtos em
   caixa-alta (códigos de seção "01–05", botão, kicker), via Google Fonts.
 - **Símbolo P:** lockup branco **oficial** embutido no hero (não redesenhado).
-- **Sobriedade:** cantos ≤ 6px, sombras ausentes/sutis, **sem emojis**, sem gradientes.
-  Escalas de sentimento em números (1–5), não em carinhas.
+- **Sobriedade:** cantos ≤ 6px, sombras ausentes/sutis, **sem emojis**, sem gradiente
+  chamativo **além do topo azul em gradiente escuro** (`linear-gradient(160deg,#143779,#0d2450,#091a3a)`,
+  padrão obrigatório do manual). Escalas de sentimento em números (1–5), não em carinhas.
+- **E-mail:** a cada resposta, notificação para o Maurício com classificação
+  Promotor/Neutro/Detrator **+ banda OPORTUNIDADE / `[LEAD]`** quando a pessoa marca
+  "Precisa de ajuda: Sim" ou declara "Investimento mensal".
+- **Padronização (30/08/2026):** este NPS é o clone de referência dos 5 formulários
+  Prassi (`/`, `/agraria/`, `/bpf/`, `/atualizacao/`, `/adesao/`), todos no padrão do
+  manual `prassi_apresentacoes.md §14`. O mecanismo virou o skill **`formulario-prassi`**.
 - **Assinatura/dados:** "Maurício di Ferreira · Engenheiro Químico · CREA-RS 149251 ·
   CRQ-V 05303466", CNPJ e endereço oficiais no rodapé. **Nunca CPF** (dado sensível).
   (CRQ confirmado pelo Maurício: `05303466` — o manual de marca foi corrigido também.)
@@ -109,7 +116,7 @@ Depois republique o Apps Script (seção 6.2) **e** o site (seção 6.1).
 
 ### 5.2 Campos atuais (name → coluna)
 `nps`, `Motivo da nota`, `Mais valoriza`, `Sensacao de trabalhar comigo`,
-`O que ainda nao recebe`, `Dois maiores desafios`, `Precisa de ajuda`,
+`O que ainda nao recebe`, `Desafio 1`, `Desafio 2`, `Precisa de ajuda`,
 `Sentimento sobre o negocio`, `Sentimento sobre a parceria`, `Onde gostaria de apoio`,
 `O que nao encontra no mercado`, `Investimento mensal`, `Depoimento`, `Espaco livre`,
 `Nome`, `Empresa`.
