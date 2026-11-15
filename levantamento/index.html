@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Levantamento de dados · Prassi Engenharia</title>
+<meta name="description" content="Levantamento de dados do estabelecimento para atualização dos documentos do MAPA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Michroma&display=swap" rel="stylesheet">
+<style>
+  :root{--azul:#143779;--terracota:#BF5C3B;--caramelo:#E78F56;--creme:#F1DCC6;--aco:#657B8C;--nevoa:#B3C0C9;--tinta:#1a2333;
+    --serif:'EB Garamond',Georgia,'Times New Roman',serif;--label:'Michroma','Arial Narrow',sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--serif);color:var(--tinta);font-size:18px;line-height:1.5;background:#fff;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 16px 72px}
+  .mich{font-family:var(--label);text-transform:uppercase;letter-spacing:.2em}
+
+  .hero{background:linear-gradient(160deg,#143779 0%,#0d2450 60%,#091a3a 100%);margin:0 -16px;padding:34px 24px 30px}
+  .hero .lockup{width:216px;max-width:62%;height:auto;display:block}
+  .filete{height:3px;width:46px;background:var(--caramelo);margin:20px 0 16px}
+  .hero-kicker{font-family:var(--label);text-transform:uppercase;letter-spacing:.28em;font-size:11px;color:var(--nevoa)}
+  .hero h1{color:#fff;font-weight:600;font-size:clamp(28px,6.5vw,40px);line-height:1.1;margin-top:10px}
+  .hero .promise{color:var(--nevoa);font-size:16px;margin-top:10px;max-width:36em}
+
+  .salvo{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #eef1f4;margin:0 -16px;padding:9px 16px;
+    font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:var(--aco);display:flex;gap:10px;align-items:center}
+  .salvo .pt{width:8px;height:8px;border-radius:50%;background:var(--nevoa);flex:none}
+  .salvo.ok .pt{background:#2e7d4f}.salvo.ando .pt{background:var(--caramelo)}.salvo.erro .pt{background:var(--terracota)}
+  .salvo.erro{color:var(--terracota)}
+
+  .intro{background:var(--creme);border:1px solid #e6d6c2;border-radius:6px;padding:22px;margin-top:20px}
+  .intro p{color:#33414f;font-size:17px}.intro p+p{margin-top:10px}
+  .alerta{border:1px solid #e6d6c2;border-left:4px solid var(--terracota);background:#fff;border-radius:6px;padding:16px 18px;margin-top:14px}
+  .alerta .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--terracota)}
+  .alerta h3{color:var(--terracota);font-size:19px;margin-top:4px}
+  .alerta p{font-size:16px;color:#33414f;margin-top:4px}
+
+  section.card{border:1px solid var(--nevoa);border-radius:6px;padding:20px 20px 8px;margin-top:20px}
+  .sec-head{display:flex;align-items:baseline;gap:12px}
+  .sec-code{font-family:var(--label);color:var(--caramelo);font-size:13px;letter-spacing:.1em}
+  .sec-head h2{color:var(--azul);font-weight:600;font-size:22px;line-height:1.15}
+  .sec-rule{height:2px;width:38px;background:var(--caramelo);margin:10px 0 2px}
+  .sec-hint{color:var(--aco);font-size:15px;font-style:italic;margin-top:6px}
+
+  .q{padding:16px 0;border-top:1px solid #eef1f4}.q:first-of-type{border-top:none}
+  .qlabel{display:block;font-weight:600;font-size:17px;line-height:1.4}
+  .qnum{font-family:var(--label);font-size:11px;color:var(--caramelo);letter-spacing:.1em;margin-right:6px}
+  .hint{display:block;color:var(--aco);font-size:14px;margin-top:3px}
+  .linha2{display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+  .linha2 label{font-size:14px;color:var(--aco)}
+
+  input[type=text],input[type=email],input[type=date],select,textarea{width:100%;border:1px solid var(--nevoa);border-radius:4px;
+    padding:10px 12px;font-size:16px;font-family:var(--serif);color:var(--tinta);background:#fff;margin-top:8px}
+  .linha2 select{width:auto;margin-top:0}
+  textarea{min-height:76px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--caramelo);box-shadow:0 0 0 2px rgba(231,143,86,.25)}
+  ::placeholder{color:var(--nevoa);font-style:italic}
+
+  .item{border:1px solid #e6d6c2;background:#fdf8f3;border-radius:6px;padding:12px 14px 14px;margin-top:12px}
+  .item-top{display:flex;justify-content:space-between;align-items:center}
+  .item-top .mich{font-size:10px;color:var(--aco)}
+  .rem{background:none;border:none;color:var(--terracota);font-family:var(--serif);font-size:14px;cursor:pointer}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+  .grid .full{grid-column:1/-1}
+  .grid label{display:block;font-size:13px;color:var(--aco);margin-top:8px}
+  .grid label input,.grid label select{margin-top:3px}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}}
+  .add{margin:14px 0 8px;background:#fff;border:1px dashed var(--aco);color:var(--azul);border-radius:4px;padding:10px 14px;
+    font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:11px;cursor:pointer;width:100%}
+  .add:hover{border-color:var(--caramelo)}
+
+  .meta{padding:14px 0;border-top:1px solid #eef1f4}
+  .meta:first-of-type{border-top:none}
+  .meta .sug{display:inline-block;margin-top:6px;background:var(--creme);color:var(--terracota);font-weight:600;border-radius:4px;padding:2px 8px;font-size:15px}
+  .meta .ind{color:var(--aco);font-size:14px}
+
+  .doc{display:grid;grid-template-columns:1fr 150px;gap:6px 12px;padding:12px 0;border-top:1px solid #eef1f4;align-items:center}
+  .doc:first-of-type{border-top:none}
+  .doc .d{font-size:16px}.doc .d small{display:block;color:var(--aco);font-size:13px}
+  .doc select{margin-top:0}
+  @media (max-width:560px){.doc{grid-template-columns:1fr}}
+
+  .submit-wrap{margin-top:26px}
+  button.send{appearance:none;border:none;cursor:pointer;width:100%;background:var(--azul);color:#fff;font-family:var(--label);
+    text-transform:uppercase;letter-spacing:.2em;font-size:14px;padding:17px 24px;border-radius:4px}
+  button.send:hover{background:var(--terracota)}button.send:disabled{background:var(--aco);cursor:default}
+  .footnote{color:var(--aco);font-size:15px;margin-top:12px;font-style:italic}
+
+  footer{background:var(--azul);margin:34px -16px 0;padding:28px 24px;color:var(--nevoa);font-size:15px;line-height:1.7}
+  footer .fname{color:#fff;font-weight:600;font-size:17px}footer a{color:var(--caramelo);text-decoration:none}
+
+  #thanks,#invalido{display:none;text-align:center;padding:56px 20px}
+  #thanks .mark{width:70px;height:70px;border-radius:6px;margin:0 auto 20px;background:var(--azul);display:flex;align-items:center;justify-content:center}
+  #thanks .k,#invalido .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.24em;font-size:11px;color:var(--caramelo)}
+  #thanks h2,#invalido h2{color:var(--azul);font-size:28px;font-weight:600;margin-top:12px}
+  #thanks p,#invalido p{color:#33414f;margin-top:12px}
+  #carregando{text-align:center;color:var(--aco);padding:40px 0;font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <svg class="lockup" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="PRASSI Engenharia &amp; Assessoria">
+      <defs><mask id="cut"><rect width="200" height="200" fill="white"></rect><rect x="24" y="14" width="26" height="46" fill="black" transform="rotate(-24 44 40)"></rect><rect x="34" y="170" width="66" height="27" fill="black" transform="rotate(-24 68 180)"></rect></mask></defs>
+      <g transform="translate(29,0) skewX(-17)"><path d="M42 46 L116 46 C 154 46 165 68 162 88 C 158 113 126 123 88 123 C 78 123 72 133 70 147 L 65 178" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-linecap="butt" stroke-linejoin="round" mask="url(#cut)"></path><path d="M28 84 L98 84" stroke="#FFFFFF" stroke-width="6.5" stroke-linecap="butt"></path></g>
+      <text x="212" y="110" font-family="Michroma" font-size="58" letter-spacing="9" fill="#FFFFFF">PRASSI</text>
+      <text x="215" y="146" font-family="Michroma" font-size="15.5" letter-spacing="6.2" fill="#B3C0C9">ENGENHARIA &amp; ASSESSORIA</text>
+    </svg>
+    <div class="filete"></div>
+    <div class="hero-kicker" id="kicker">Levantamento de dados</div>
+    <h1>Levantamento de dados</h1>
+    <p class="promise">O que a Prassi precisa para atualizar o Memorial Descritivo, o Manual de Boas Práticas, os POPs e as instruções de trabalho junto ao MAPA.</p>
+  </div>
+
+  <div class="salvo" id="salvo"><span class="pt"></span><span id="salvo-txt">Carregando…</span></div>
+  <div id="carregando">Carregando o seu levantamento…</div>
+
+  <div id="conteudo" style="display:none">
+    <div class="intro">
+      <p><strong>Tudo o que você escreve é salvo sozinho</strong>, a cada alteração. Pode parar e voltar depois pelo mesmo link, de qualquer aparelho: as respostas estarão aqui.</p>
+      <p>Responda o que souber. Dado numérico vai com a unidade (L, kg/h, m²). Na dúvida se algo mudou, escreva "não mudou". Arquivos e fotos (planta, laudos, placas dos equipamentos) vão por e-mail ou WhatsApp — marque na seção Documentos o que já enviou.</p>
+    </div>
+    <div id="alertas"></div>
+
+    <section class="card">
+      <div class="sec-head"><span class="sec-code mich">00</span><h2>Quem está respondendo</h2></div><div class="sec-rule"></div>
+      <div class="grid">
+        <label>Nome<input type="text" data-k="contato.nome"></label>
+        <label>E-mail<input type="email" data-k="contato.email"></label>
+      </div><div style="height:12px"></div>
+    </section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">01</span><h2>Perguntas</h2></div><div class="sec-rule"></div><div id="perguntas"></div></section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">02</span><h2>Equipe</h2></div><div class="sec-rule"></div>
+      <p class="sec-hint">Liste todos os funcionários, inclusive sócios que trabalham na produção: nome completo, cargo e o que cada um faz.</p>
+      <div id="equipe"></div><button type="button" class="add" data-add="equipe">+ Adicionar funcionário</button></section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">03</span><h2>Metas de segurança dos alimentos</h2></div><div class="sec-rule"></div>
+      <p class="sec-hint">Para cada meta, aceite a sugestão da Prassi ou informe outro valor. As metas entram no Manual de Boas Práticas (Decreto nº 12.709/2025, art. 119, I).</p>
+      <div id="metas"></div></section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">04</span><h2>Equipamentos</h2></div><div class="sec-rule"></div>
+      <p class="sec-hint">Somente os equipamentos do estabelecimento: cozinha, tanques, envase, lavagem, frio e utilidades. Tanques iguais podem ir num item só, com a quantidade.</p>
+      <div id="equipamentos"></div><button type="button" class="add" data-add="equipamentos">+ Adicionar equipamento</button></section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">05</span><h2>Instrumentos de medição</h2></div><div class="sec-rule"></div>
+      <p class="sec-hint">Para o plano de calibração: termômetros, termo-higrômetros, pHmetro, densímetro, balanças, medidores de CO₂ e O₂, manômetros, válvulas de segurança, sensores e controladores.</p>
+      <div id="instrumentos"></div><button type="button" class="add" data-add="instrumentos">+ Adicionar instrumento</button></section>
+
+    <section class="card"><div class="sec-head"><span class="sec-code mich">06</span><h2>Documentos a enviar</h2></div><div class="sec-rule"></div>
+      <p class="sec-hint">Envie para mauriciodiferreira@prassiengenharia.com.br ou pelo WhatsApp e marque aqui.</p>
+      <div id="documentos"></div><div style="height:8px"></div></section>
+
+    <div class="submit-wrap">
+      <button type="button" class="send" id="concluir">Concluir e avisar a Prassi</button>
+      <p class="footnote">Concluir avisa a Prassi que o levantamento está pronto. Você ainda pode voltar pelo mesmo link e corrigir.</p>
+    </div>
+  </div>
+
+  <div id="thanks">
+    <div class="mark"><svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="k">Levantamento concluído</div>
+    <h2>Recebido. Obrigado.</h2>
+    <p>Com estes dados a Prassi conclui os documentos e retorna com o que faltar.<br>Para corrigir algo, abra o mesmo link de novo.</p>
+  </div>
+  <div id="invalido">
+    <div class="k">Link incompleto</div>
+    <h2>Não encontramos o seu levantamento.</h2>
+    <p>Confira se o link foi copiado inteiro, ou peça um novo à Prassi pelo WhatsApp +55 51 99545-1857.</p>
+  </div>
+
+  <footer>
+    <div class="fname">Maurício di Ferreira · Engenheiro Químico</div>
+    <div>CREA-RS 149251 · CRQ-V 05303466</div>
+    <div>Prassi Engenharia e Assessoria LTDA · CNPJ 51.901.128/0001-67</div>
+    <div>Rua Alexandre Fleming, 182 · Sala 1301 · Madureira · CEP 95041-520 · Caxias do Sul/RS</div>
+    <div><a href="https://wa.me/5551995451857" target="_blank" rel="noopener">+55 51 99545-1857</a> · <a href="mailto:mauriciodiferreira@prassiengenharia.com.br">mauriciodiferreira@prassiengenharia.com.br</a></div>
+  </footer>
+</div>
+
+<script>
+/* Gerado por Prassi-Docs-MAPA/scripts/gen-levantamento-html.mjs — não editar à mão. */
+var EXEC = "__EXEC_URL__";
+var BANCO = {"perguntas":[{"id":"p01","tema":"Cadastro","pergunta":"O endereço do estabelecimento continua o mesmo? O imóvel é próprio ou locado (se locado, até quando vale o contrato)?","porque":"Identificação e vínculo com o imóvel."},{"id":"p02","tema":"Cadastro","pergunta":"Qual o horário de funcionamento (dias e horários)? Há turnos extras ou trabalho aos sábados?","porque":"Manual de BPF — identificação."},{"id":"p03","tema":"Cadastro","pergunta":"Há refeitório ou local próprio para as refeições da equipe?","porque":"Manual de BPF — higiene e instalações."},{"id":"p04","tema":"Instalações","pergunta":"Envie a planta baixa OFICIAL e atualizada, cotada, em PDF e DWG (ver aba Documentos). Ela deve mostrar pé-direito, área de cada sala, pias de mãos, ralos, pontos de água, portas e telas, sanitários e vestiário.","porque":"Anexo obrigatório do Memorial Descritivo; a descrição das áreas sai dela."},{"id":"p05","tema":"Instalações","pergunta":"Qual a área construída total em m²? Piso, paredes, forro, iluminação, portas ou telas mudaram desde o último Memorial? Envie fotos de cada sala.","porque":"Descrição das instalações no Memorial."},{"id":"p06","tema":"Instalações","pergunta":"Onde ficam, na planta: depósito de embalagens, expedição, produtos devolutos, resíduos, sanitários, vestiário e pontos de lavagem de mãos?","porque":"O MAPA exige essas áreas identificadas na planta."},{"id":"p07","tema":"Processo","pergunta":"Como é aquecida a cozinha (vapor, elétrico, gás)? Há caldeira ou gerador de vapor? Se sim: fabricante, categoria e último laudo.","porque":"Memorial, manutenção e segurança (NR-13, quando houver caldeira)."},{"id":"p08","tema":"Processo","pergunta":"Sistema de frio: volume do reservatório, fluido (álcool + água e proporção, ou glicol), compressor ou chiller (fabricante, potência, gás refrigerante) e temperatura de trabalho. Quais tanques têm camisa ligada a ele?","porque":"Memorial (sistema de frio), controle CSR e POP-05."},{"id":"p09","tema":"Processo","pergunta":"Quais embalagens usam hoje (latas, garrafas, barris inox, barris PET, growlers) e em quais volumes? Os barris são retornáveis?","porque":"Fluxo de envase, rotulagem e controle de retornáveis."},{"id":"p10","tema":"Processo","pergunta":"Há filtração (e com qual auxiliar, ex.: terra diatomácea), pasteurização ou envelhecimento de produto?","porque":"Fluxograma, controles CTF e CE."},{"id":"p11","tema":"Produção","pergunta":"Qual a produção mensal atual (L/mês), quantas brassagens por semana e qual a capacidade que se pretende alcançar?","porque":"Capacidade instalada no Memorial."},{"id":"p12","tema":"Produtos","pergunta":"Quais produtos e marcas estão ativos, com o número de registro no MAPA? Há produtos novos a registrar (com fruta, aroma, sour, sem glúten)?","porque":"Fluxogramas, rotulagem e POPs complementares."},{"id":"p13","tema":"Água","pergunta":"Qual a origem da água (rede pública, poço, reservatório do condomínio)? Volume dos reservatórios, quem os limpa e com que frequência, e quais filtros estão em uso? Envie os últimos laudos de potabilidade.","porque":"POP-02 — Potabilidade de água."},{"id":"p14","tema":"Pragas","pergunta":"Qual empresa faz o controle de pragas (nome e licença sanitária), com que frequência e quais produtos aplica? Envie os últimos relatórios.","porque":"POP-06 — Controle integrado de pragas."},{"id":"p15","tema":"Resíduos","pergunta":"Qual empresa coleta os resíduos e qual o destino do bagaço, do trub e da levedura? O efluente segue para estação de tratamento?","porque":"POP-04 — Manejo de resíduos."},{"id":"p16","tema":"Saúde","pergunta":"Qual empresa de medicina e segurança do trabalho atende a cervejaria (PCMSO e PGR) e quando foram os últimos exames periódicos?","porque":"POP-03 — Higiene e saúde dos colaboradores."},{"id":"p17","tema":"Químicos","pergunta":"Quais detergentes e sanitizantes são usados (nome comercial e fabricante)? Envie a ficha técnica e a de segurança (FDS) de cada um.","porque":"POP-01 e depósito de produtos químicos."},{"id":"p18","tema":"Gestão","pergunta":"A direção aceita a política-padrão de segurança dos alimentos (produto seguro, recursos, Responsável Técnico designado e análise crítica anual)? Quer acrescentar algo próprio?","porque":"Manual de BPF §4.2 — Decreto nº 12.709/2025, art. 119, I."},{"id":"p19","tema":"Gestão","pergunta":"Com que frequência a direção analisará os resultados das metas (sugestão: anual e após qualquer recolhimento)?","porque":"Análise crítica registrada."}],"metas":[{"id":"m01","meta":"Produto seguro","indicador":"Recolhimentos (recall) de lote","registro":"CR · a cada ocorrência","sugestao":"0 por ano"},{"id":"m02","meta":"Reclamações tratadas","indicador":"% com causa e tratativa registradas","registro":"SAC / CDP · mensal","sugestao":"100% em até 5 dias úteis"},{"id":"m03","meta":"Registros em dia","indicador":"% preenchidos e assinados no prazo","registro":"Lista Mestra · mensal","sugestao":"≥ 95% ao mês"},{"id":"m04","meta":"Água conforme","indicador":"% de análises de potabilidade conformes","registro":"CPA · semestral","sugestao":"100%"},{"id":"m05","meta":"Calibração em dia","indicador":"% de instrumentos com calibração vigente","registro":"CAC · trimestral","sugestao":"100%"},{"id":"m06","meta":"Manutenção preventiva","indicador":"% realizada no mês programado","registro":"RMP · mensal","sugestao":"≥ 90%"},{"id":"m07","meta":"Pragas sob controle","indicador":"Relatórios com não conformidade crítica sem ação","registro":"CP · mensal","sugestao":"0"},{"id":"m08","meta":"Equipe capacitada","indicador":"% de colaboradores com capacitação em BPF vigente","registro":"LPT · anual","sugestao":"100%"},{"id":"m09","meta":"Rastreabilidade","indicador":"Reconciliação e tempo no simulado","registro":"Simulado · semestral","sugestao":"≥ 98% em até 4 h"},{"id":"m10","meta":"Não conformidades","indicador":"% de RNC encerradas no prazo, com eficácia verificada","registro":"RNC / RAI · trimestral","sugestao":"≥ 90% por trimestre"}],"papeis":["Responsável legal / alta direção","Gestor da produção","Cervejeiro","Coordenador de boas práticas","Equipe de boas práticas","Titular da sala de malte","Substituto da sala de malte","Operador de produção","Envase / expedição","Administrativo / comercial","Outro"],"tiposEquipamento":["Moinho","Cozinha / tina","Tanque de água quente","Trocador de calor","Aerador","Fermentador / maturador","Tanque pulmão","Enchedora","Fechadora / recravadeira","Envase de barris","Lavadora de barris","Sistema de frio","Caldeira / vapor","Compressor de ar","CO₂","Bomba","Filtro","Pasteurizador","Outro"],"documentos":[{"id":"d01","documento":"Planta baixa oficial atualizada, cotada (PDF e DWG)","porque":"Anexo do Memorial Descritivo"},{"id":"d02","documento":"Contrato social (última alteração) e cartão CNPJ atualizado","porque":"Identificação"},{"id":"d03","documento":"Contrato de locação do imóvel, se locado","porque":"Identificação"},{"id":"d04","documento":"Licença de Operação vigente","porque":"Regularidade ambiental"},{"id":"d05","documento":"ART do sistema de frio vigente","porque":"Anexo do Memorial (sistema de frio)"},{"id":"d06","documento":"Nota fiscal e certificado de análise do fluido de resfriamento","porque":"Anexo do Memorial (sistema de frio)"},{"id":"d07","documento":"Últimos laudos de potabilidade da água","porque":"POP-02"},{"id":"d08","documento":"Últimos relatórios e licença da empresa de controle de pragas","porque":"POP-06"},{"id":"d09","documento":"PCMSO / PGR e ASOs vigentes","porque":"POP-03"},{"id":"d10","documento":"Fichas técnicas e de segurança dos saneantes","porque":"POP-01"},{"id":"d11","documento":"Certificados de calibração dos instrumentos","porque":"POP-05"},{"id":"d12","documento":"Fotos de cada sala e da placa de cada equipamento","porque":"Memorial e lista de equipamentos"}]};
+
+var token = new URLSearchParams(location.search).get('c') || '';
+var LS = 'prassi-lev-' + token;
+var dados = { contato: {}, perguntas: {}, equipe: [], metas: {}, equipamentos: [], instrumentos: [], documentos: {} };
+var perguntasAll = [];
+var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+var $ = function (id) { return document.getElementById(id); };
+
+function setSalvo(cls, txt) { var s = $('salvo'); s.className = 'salvo ' + cls; $('salvo-txt').textContent = txt; }
+function hora() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+function opcoes(lista, v) { return '<option value=""></option>' + lista.map(function (o) { return '<option' + (o === v ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join(''); }
+
+var LINHAS = {
+  equipe: { rot: 'Funcionário', campos: [['nome', 'Nome completo', 'text', 1], ['cargo', 'Cargo', 'text'], ['funcao', 'Função / atividades que executa', 'text'],
+    ['papel', 'Papel no programa de BPF', BANCO.papeis], ['admissao', 'Data de admissão', 'date'], ['bpf', 'Capacitação em BPF', ['Sim, vigente', 'Sim, vencida', 'Não']]], ini: 3 },
+  equipamentos: { rot: 'Equipamento', campos: [['tipo', 'Tipo', BANCO.tiposEquipamento], ['descricao', 'Descrição / identificação', 'text'], ['modelo', 'Fabricante e modelo', 'text'],
+    ['capacidade', 'Capacidade', 'text'], ['unidade', 'Unidade', ['L', 'hL', 'kg/h', 'L/h', 'un./h', 'kW', 'CV', 'kcal/h', 'Outra']], ['quantidade', 'Quantidade', 'text'],
+    ['refrigeracao', 'Refrigeração', ['Camisa ligada ao sistema de frio', 'Autorrefrigerado', 'Sem refrigeração', 'Não se aplica']], ['serie', 'Ano / nº de série', 'text'], ['obs', 'Observações', 'text', 1]], ini: 4 },
+  instrumentos: { rot: 'Instrumento', campos: [['instrumento', 'Instrumento', 'text'], ['tag', 'Identificação (TAG)', 'text'], ['local', 'Local de uso', 'text'], ['faixa', 'Faixa e resolução', 'text'],
+    ['modelo', 'Fabricante e modelo', 'text'], ['calibracao', 'Última calibração', 'date'], ['laboratorio', 'Laboratório / certificado', 'text'], ['obs', 'Observações', 'text']], ini: 3 }
+};
+
+function campo(lista, i, c, v) {
+  var k = lista + '.' + i + '.' + c[0], cls = c[3] ? ' class="full"' : '';
+  if (Array.isArray(c[2])) return '<label' + cls + '>' + c[1] + '<select data-k="' + k + '">' + opcoes(c[2], v) + '</select></label>';
+  return '<label' + cls + '>' + c[1] + '<input type="' + c[2] + '" data-k="' + k + '" value="' + esc(v) + '"></label>';
+}
+function desenharLista(lista) {
+  var L = LINHAS[lista], arr = dados[lista];
+  while (arr.length < L.ini) arr.push({});
+  $(lista).innerHTML = arr.map(function (r, i) {
+    return '<div class="item"><div class="item-top"><span class="mich">' + L.rot + ' ' + (i + 1) + '</span>' +
+      '<button type="button" class="rem" data-rem="' + lista + '.' + i + '">remover</button></div><div class="grid">' +
+      L.campos.map(function (c) { return campo(lista, i, c, r[c[0]]); }).join('') + '</div></div>';
+  }).join('');
+}
+
+function desenhar() {
+  perguntasAll = (BANCO.extras || []).concat(BANCO.perguntas);
+  $('perguntas').innerHTML = perguntasAll.map(function (q, i) {
+    var r = dados.perguntas[q.id] || {};
+    return '<div class="q"><span class="qlabel"><span class="qnum">' + ('0' + (i + 1)).slice(-2) + '</span>' + esc(q.pergunta) + '</span>' +
+      '<span class="hint">' + esc(q.porque) + '</span>' +
+      '<textarea data-k="perguntas.' + q.id + '.resposta">' + esc(r.resposta) + '</textarea>' +
+      '<div class="linha2"><label>Arquivo enviado?</label><select data-k="perguntas.' + q.id + '.arquivo">' + opcoes(['Sim', 'Não', 'Não se aplica'], r.arquivo) + '</select></div></div>';
+  }).join('');
+  $('metas').innerHTML = BANCO.metas.map(function (m) {
+    var r = dados.metas[m.id] || {};
+    return '<div class="meta"><span class="qlabel">' + esc(m.meta) + '</span><span class="ind">' + esc(m.indicador) + ' · ' + esc(m.registro) + '</span><br>' +
+      '<span class="sug">Sugestão da Prassi: ' + esc(m.sugestao) + '</span><div class="grid">' +
+      '<label>Decisão<select data-k="metas.' + m.id + '.decisao">' + opcoes(['Aceito a sugestão', 'Outro valor'], r.decisao) + '</select></label>' +
+      '<label>Outro valor (se não aceitar)<input type="text" data-k="metas.' + m.id + '.outro" value="' + esc(r.outro) + '"></label>' +
+      '<label class="full">Observação<input type="text" data-k="metas.' + m.id + '.obs" value="' + esc(r.obs) + '"></label></div></div>';
+  }).join('');
+  $('documentos').innerHTML = BANCO.documentos.map(function (d) {
+    var r = dados.documentos[d.id] || {};
+    return '<div class="doc"><div class="d">' + esc(d.documento) + '<small>' + esc(d.porque) + '</small></div>' +
+      '<select data-k="documentos.' + d.id + '.enviado">' + opcoes(['Enviado', 'Envio depois', 'Não se aplica'], r.enviado) + '</select></div>';
+  }).join('');
+  ['equipe', 'equipamentos', 'instrumentos'].forEach(desenharLista);
+  document.querySelectorAll('[data-k^="contato."]').forEach(function (el) { el.value = dados.contato[el.dataset.k.split('.')[1]] || ''; });
+}
+
+function gravarCampo(el) {
+  var p = el.dataset.k.split('.');
+  if (p.length === 2) dados[p[0]][p[1]] = el.value;
+  else if (Array.isArray(dados[p[0]])) dados[p[0]][+p[1]][p[2]] = el.value;
+  else { dados[p[0]][p[1]] = dados[p[0]][p[1]] || {}; dados[p[0]][p[1]][p[2]] = el.value; }
+}
+
+// Payload em formato legível para a planilha (uma linha por item)
+function payload() {
+  var cheio = function (o) { return Object.keys(o).some(function (k) { return String(o[k] || '').trim(); }); };
+  return {
+    contato: dados.contato, _bruto: dados,
+    perguntas: perguntasAll.map(function (q, i) { var r = dados.perguntas[q.id] || {}; return { n: i + 1, tema: q.tema, pergunta: q.pergunta, resposta: r.resposta || '', arquivo: r.arquivo || '' }; }),
+    equipe: dados.equipe.filter(cheio), equipamentos: dados.equipamentos.filter(cheio), instrumentos: dados.instrumentos.filter(cheio),
+    metas: BANCO.metas.map(function (m) { var r = dados.metas[m.id] || {}; return { meta: m.meta, sugestao: m.sugestao, decisao: r.decisao || '', outro: r.outro || '', obs: r.obs || '' }; }),
+    documentos: BANCO.documentos.map(function (d) { var r = dados.documentos[d.id] || {}; return { documento: d.documento, enviado: r.enviado || '', data: r.enviado === 'Enviado' ? (r.data || new Date().toLocaleDateString('pt-BR')) : '', obs: '' }; })
+  };
+}
+
+var timer = null, pendente = false;
+function agendar() {
+  try { localStorage.setItem(LS, JSON.stringify({ t: Date.now(), d: dados })); } catch (e) {}
+  setSalvo('ando', 'Salvando…'); pendente = true;
+  clearTimeout(timer); timer = setTimeout(function () { enviar('salvar'); }, 1500);
+}
+function enviar(acao) {
+  pendente = false;
+  var body = new URLSearchParams({ acao: acao, c: token, payload: JSON.stringify(payload()) });
+  return fetch(EXEC, { method: 'POST', body: body })
+    .then(function (r) { return r.json(); })
+    .then(function (j) { if (!j.ok) throw new Error(j.erro); setSalvo('ok', 'Salvo automaticamente às ' + hora()); return j; })
+    .catch(function () {
+      return fetch(EXEC, { method: 'POST', body: body, mode: 'no-cors' })
+        .then(function () { setSalvo('ok', 'Enviado às ' + hora()); })
+        .catch(function () { setSalvo('erro', 'Sem conexão — guardado neste aparelho; tentaremos de novo'); pendente = true; });
+    });
+}
+setInterval(function () { if (pendente && navigator.onLine) enviar('salvar'); }, 20000);
+window.addEventListener('beforeunload', function (e) { if (pendente) { e.preventDefault(); e.returnValue = ''; } });
+
+document.addEventListener('input', function (e) { if (e.target.dataset && e.target.dataset.k) { gravarCampo(e.target); agendar(); } });
+document.addEventListener('change', function (e) { if (e.target.dataset && e.target.dataset.k) { gravarCampo(e.target); agendar(); } });
+document.addEventListener('click', function (e) {
+  var a = e.target.dataset && e.target.dataset.add, rm = e.target.dataset && e.target.dataset.rem;
+  if (a) { dados[a].push({}); desenharLista(a); var it = $(a).lastElementChild; if (it) it.querySelector('input,select').focus(); }
+  if (rm) { var p = rm.split('.'); if (confirm('Remover este item?')) { dados[p[0]].splice(+p[1], 1); desenharLista(p[0]); agendar(); } }
+});
+$('concluir').addEventListener('click', function () {
+  var b = $('concluir'); b.disabled = true; b.textContent = 'Enviando…';
+  clearTimeout(timer);
+  enviar('concluir').then(function () {
+    $('conteudo').style.display = 'none'; document.querySelector('.hero').style.display = 'none';
+    $('thanks').style.display = 'block'; window.scrollTo({ top: 0 });
+  });
+});
+
+function iniciar(r) {
+  $('carregando').style.display = 'none';
+  if (!r || !r.ok) { $('salvo').style.display = 'none'; $('invalido').style.display = 'block'; return; }
+  document.title = 'Levantamento de dados · ' + r.cliente + ' · Prassi Engenharia';
+  $('kicker').textContent = 'Levantamento de dados · ' + r.cliente;
+  BANCO.extras = (r.config.perguntasExtras || []).map(function (q, i) { return { id: 'x' + (i + 1), tema: q[0], pergunta: q[1], porque: q[2] }; });
+  $('alertas').innerHTML = (r.config.alertas || []).map(function (a) {
+    return '<div class="alerta"><div class="k">Atenção</div><h3>' + esc(a[0]) + '</h3><p>' + esc(a[1]) + '</p></div>';
+  }).join('');
+  var servidor = r.respostas && r.respostas._bruto, local = null;
+  try { local = JSON.parse(localStorage.getItem(LS) || 'null'); } catch (e) {}
+  var tServ = r.atualizado ? new Date(r.atualizado).getTime() : 0;
+  if (local && local.t > tServ + 5000) { dados = local.d; pendente = true; } else if (servidor) dados = servidor;
+  ['equipe', 'equipamentos', 'instrumentos'].forEach(function (k) { dados[k] = dados[k] || []; });
+  desenhar();
+  $('conteudo').style.display = 'block';
+  setSalvo(pendente ? 'ando' : 'ok', pendente ? 'Alterações deste aparelho ainda não enviadas' : (r.atualizado ? 'Respostas carregadas · salvamento automático ligado' : 'Salvamento automático ligado'));
+  if (pendente) enviar('salvar');
+}
+
+if (!token || EXEC.indexOf('__') === 0) iniciar(null);
+else fetch(EXEC + '?c=' + encodeURIComponent(token)).then(function (r) { return r.json(); }).then(iniciar)
+  .catch(function () { $('carregando').textContent = 'Não foi possível carregar agora. Verifique a conexão e recarregue a página.'; });
+</script>
+</body>
+</html>

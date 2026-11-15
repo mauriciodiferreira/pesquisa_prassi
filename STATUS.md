@@ -232,3 +232,19 @@ cabeçalho).
       (`og:image`) apontando para um PNG hospedado.
 - [ ] (Opcional) Aba de cálculo automático de NPS e um painel no Looker Studio.
 - [ ] Aplicar a mesma linha visual às demais pesquisas/produtos Prassi.
+
+---
+
+## Levantamento de dados (LEV-001) — `levantamento/` · 08/10/2026 · NÃO PUBLICADO
+
+Formulário de outro tipo: o cliente preenche aos poucos e a página **salva sozinha** (POST ~1,5 s após
+cada alteração + cópia no aparelho; volta pelo mesmo link de qualquer aparelho). Sem NPS e sem QR.
+- Link por cliente: `pesquisa.prassiengenharia.com.br/levantamento/?c=<token>` (Brew Up: `brewup-5d562faf`).
+- **Página genérica**, gerada — não editar à mão: fonte em `~/Claude/Prassi-Docs-MAPA/fonte/levantamento-perguntas.json`
+  + `scripts/levantamento.template.html` → `node scripts/gen-levantamento-html.mjs [clientes/<slug>.json]`.
+- **Backend:** `scripts/google-apps-script-levantamento.gs` (planilha própria; `instalar()` cria as abas;
+  `doGet` devolve config + respostas salvas; `doPost` grava/atualiza; e-mail só em "Concluir").
+- **Dado de cliente nunca neste repo (é público):** nome, alertas e perguntas extras ficam na aba **Clientes**
+  da planilha (linha pronta em `Prassi-Docs-MAPA/clientes/<slug>/levantamento-cadastro.tsv`).
+- **Falta:** criar a planilha + implantar o App da Web (Maurício) → URL `/exec` em `execUrl` do banco → regerar
+  → POST de teste conferindo a LINHA → commit/push (com autorização).
