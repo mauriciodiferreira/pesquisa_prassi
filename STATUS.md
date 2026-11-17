@@ -248,3 +248,15 @@ cada alteração + cópia no aparelho; volta pelo mesmo link de qualquer aparelh
   da planilha (linha pronta em `Prassi-Docs-MAPA/clientes/<slug>/levantamento-cadastro.tsv`).
 - **Falta:** criar a planilha + implantar o App da Web (Maurício) → URL `/exec` em `execUrl` do banco → regerar
   → POST de teste conferindo a LINHA → commit/push (com autorização).
+
+## Kit APPCC · lista do lançamento — `appcc-interesse/` · 16/11/2026 · NO AR
+
+- **Endereço:** https://pesquisa.prassiengenharia.com.br/appcc-interesse/ (o QR do deck do
+  treinamento APPCC já aponta para cá; a Emy manda `?origem=instagram` no DM da palavra APPCC).
+- **Backend:** `scripts/google-apps-script-appcc-interesse.gs`, na planilha
+  "Prassi · Kit APPCC · Lista do lançamento" (conta Google do Maurício), aba "Interessados".
+- **URL /exec em uso:** `https://script.google.com/macros/s/AKfycbxGKJz2s9D-avQGnV_0Q8VhvkpqCQJ4nIX0dOrkNbPbHbTk2AaMpP6oB7d9wYxNSVX7/exec`
+- **Mudou o código do .gs?** Gerenciar implantações → lápis → Nova versão (nunca "Nova
+  implantação", que troca a URL).
+- **Teste de 16/11:** linha "TESTE Claude (apagar)" — apagar da planilha depois de conferida.
+
