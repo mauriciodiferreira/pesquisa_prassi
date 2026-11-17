@@ -2,6 +2,13 @@
 
 > Histórico datado. Mais novo no topo.
 
+## 16/11/2026 — Adesão e Atualização: coluna central corrigida
+- `adesao/` e `atualizacao/` tinham um `</div>` sobrando depois da introdução, que fechava a
+  coluna central cedo: formulário e rodapé saíam da coluna (no celular, rodapé 20 px além da
+  tela; no computador, cartões com 1.280 px e rodapé com 1.320 px). Removido; medido depois:
+  390 px no celular e 620/660 px no computador. Mesma correção na fonte
+  (`~/Claude/Treinamento-Atualizacao-Cervejaria/formulario/`).
+
 ## 16/11/2026 — Kit APPCC · lista do lançamento (`appcc-interesse/`) no ar
 - Novo formulário `appcc-interesse/index.html` (marca da ficha de adesão): contato, interesse,
   quando começar, bloco opcional para quem já quer implantar e consentimento LGPD. Campo
