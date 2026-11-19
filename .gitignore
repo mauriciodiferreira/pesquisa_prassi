@@ -1,9 +1,10 @@
-# Arquivos internos — NUNCA publicar no repositório público.
-# O GitHub Pages só precisa do index.html.
-HANDOFF.md
-google-apps-script.gs
-google-apps-script-agraria.gs
+# Repositório PÚBLICO: o GitHub Pages serve tudo o que está nele (o Jekyll ainda
+# transforma .md em página). Só sobem os formulários (index.html de cada pasta),
+# o CNAME e este arquivo. Nada interno, nada de cliente.
+*.md
+*.gs
+scripts/
+*.docx
 Pesquisa_NPS_Prassi.html
-Pesquisa_NPS_Prassi.docx
 _extract/
 .DS_Store
